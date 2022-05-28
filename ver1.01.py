@@ -3,7 +3,7 @@ import tkinter
 from pyparsing import col
 
 
-def openFrame(frame):
+def openFrame(frame): #프레임 변경
     frame.tkraise()
 
 snackc = ['black', 'blue', 'green', 'deeppink', 'yellow']
