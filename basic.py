@@ -15,7 +15,7 @@ offsets = {
  
 def reset():
     global snake, snake_dir, food_position, pen
-    snake = [[0,80], [0, 60], [0, 40], [0, 20], [0, 0], [0,-20], [0,-40]] #각각의 뱀 픽셀의 위치
+    snake = [[0,80], [0, 60], [0, 40], [0, 20], [0, 0]] #각각의 뱀 픽셀의 위치
     print(snake[0])
     snake_dir = "down" #현재 뱀의 상태
     food_position = get_random_food_position()
