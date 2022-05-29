@@ -2,7 +2,7 @@ import tkinter
 import snake_hard
 
 from pyparsing import col
-
+#
 
 def openFrame(frame): #프레임 변경
     frame.tkraise()
