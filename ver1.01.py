@@ -21,7 +21,7 @@ win.title('Welcome to Snake Game!!')
 
 mainframe = tkinter.Frame(win)
 modeframe = tkinter.Frame(win)
-settingframe = tkinter.Frame(win)#
+settingframe = tkinter.Frame(win)##
 
 mainframe.grid(row=0, column=0, sticky="nsew")
 modeframe.grid(row=0, column=0, sticky="nsew")
