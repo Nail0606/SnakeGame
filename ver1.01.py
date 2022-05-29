@@ -6,6 +6,9 @@ from pyparsing import col
 def openFrame(frame): #프레임 변경
     frame.tkraise()
 
+def easystart(filename):
+    
+
 snackc = ['black', 'blue', 'green', 'deeppink', 'yellow']
 feedc = ['yellow', 'teal', 'navy', 'black', 'green']
 
@@ -96,8 +99,8 @@ backbtn.grid(row=7, column=2)
 gotomode = tkinter.Button(mainframe, text="START",width =15, height =2,command=lambda:[openFrame(modeframe)], bg ='skyblue')
 gotoset = tkinter.Button(mainframe, text="SETTING",width=15,height =2,command=lambda:[openFrame(settingframe)], bg = 'gray')
 
-easybtn = tkinter.Button(modeframe, text = 'EASY',width=25,height = 10,bg="#00ffff")
-hardbtn = tkinter.Button(modeframe, text = 'HARD',width=25,height = 10,bg="#ff9999")
+easybtn = tkinter.Button(modeframe, text = 'EASY',width=25,height = 10,bg="#00ffff"command=lambda:[easystart(filename)])
+hardbtn = tkinter.Button(modeframe, text = 'HARD',width=25,height = 10,bg="#ff9999"command=lambda:[easystart(filename)])
 vsbtn = tkinter.Button(modeframe, text = 'VS MODE',width=25,height = 10,bg="#ffc000")
 bossbtn = tkinter.Button(modeframe, text = 'BOSS MODE',width=25,height = 10,bg="lightgray")
 
