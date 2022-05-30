@@ -3,3 +3,4 @@ import와 global을 이용해서 해결했다.
 
 
 commit test
+import와 global을 이용해서 해결했다....
