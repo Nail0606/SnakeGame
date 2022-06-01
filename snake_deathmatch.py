@@ -81,9 +81,10 @@ def move_snake():
             pen.setheading(heading[segment[2]])
             pen.stamp()
         
-        displayScore.clear()
-        displayScore.goto(-w/2+10,h/2-20)
-        displayScore.write("SCORE:"+str(len(snake)))
+        #displayScore.clear()
+        #displayScore.goto(-w/2+10,h/2-20)
+        #displayScore.color("white")
+        #displayScore.write("SCORE:"+str(len(snake)))
          
         screen.update()
 
@@ -168,8 +169,14 @@ def gameOverfunc(player):
     global gameOver
     
     displayScore.clear()
-    displayScore.goto(-w/3,0)
-    displayScore.write(player+"WIN",font=("Arial", 20))
+    if player == "BLUE":
+        displayScore.goto(-w/3,0)
+        displayScore.color("blue")
+        displayScore.write(player+"WIN",font=("Arial", 20))
+    else:
+        displayScore.goto(-w/3,-30)
+        displayScore.color("red")
+        displayScore.write(player+"WIN",font=("Arial", 20))
     gameOver = True
 
 def food_collision(snake):
