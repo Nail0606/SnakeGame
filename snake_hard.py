@@ -112,7 +112,15 @@ def food_collision():
     if get_distance(snake[-1][0:2], food1['position']) < 20:
         food_goto_random()
         trap_goto_random()
-
+        
+        #trap food 겹치면 trap 재배치
+        for _ in range(100):
+            dis = get_distance(trap1['position'],food1['position'])
+            if int(dis) < 30: 
+                trap_goto_random()
+            else:      
+                break;
+        
         #food 몸통위에 스폰시 재 배치
         for _ in range(100):
             iscollision = False
@@ -123,8 +131,9 @@ def food_collision():
                     iscollision = True
             if not iscollision:
                 break
-             
         return True
+        
+    
     return False
 
 def food_goto_random():
