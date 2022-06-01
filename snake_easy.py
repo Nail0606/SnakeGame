@@ -7,13 +7,10 @@ t = time
 w = 700
 h = 700
 food1 = {'position':(),'size':10}
-trap1 = {'position':(),'size':10}
+#trap1 = {'position':(),'size':10}
 delay = 100
 countingTen = t.time()
 gameOver = False
-maxLife = 5
-life = maxLife
-
 
 def reset():
     global snake, snake_dir, food1, pen, food1,delay,countingTen,startTime,gameOver
@@ -24,26 +21,27 @@ def reset():
     snake = [[0,-20,'up'],[0, 0,'up']]
     snake_dir = "up"
     food1['position'] = get_random_position(food1['size'])
-    trap1['position'] = get_random_position(trap1['size'])
+    #trap1['position'] = get_random_position(trap1['size'])
     food.goto(food1['position'])
-    trap.goto(trap1['position'])
+    #trap.goto(trap1['position'])
     move_snake()
 
 
 
 def move_snake():
     
-    global snake_dir, score, delay, countingTen,gameOver, maxLife, life
+    global snake_dir, score, delay, countingTen, gameOver
  
     new_head = snake[-1].copy()
     new_head[0] = snake[-1][0] + offsets[snake_dir][0]
     new_head[1] = snake[-1][1] + offsets[snake_dir][1]
     new_head[2] = snake_dir
- 
-     
-    if headInSnakeCheck(snake, new_head[:2]) or life <= 0:
+
+    
+    if headInSnakeCheck(snake, new_head[:2]):
         #reset()
         print('생존시간:%.2f'%(surviveTime()))
+        print(str(new_head)+" "+str(snake[:-1]))
         displayScore.clear()
         displayScore.goto(-w/3,0)
         displayScore.write('''뱀의 길이:%d
@@ -61,11 +59,10 @@ def move_snake():
         if not food_collision(): #부딪치지 않았다면 
             snake.pop(0)
         
-        if trap_collision(): #부딪쳤다면
-            pen.color('red')
-            life -= 1
-            for _ in range(int(len(snake) / 2)):
-                snake.pop(0)
+        #if trap_collision(): #부딪쳤다면
+        #    pen.color('red')
+        #    for _ in range(int(len(snake) / 2)):
+        #       snake.pop(0)
             
         if snake[-1][0] > w / 2:
             snake[-1][0] -= w
@@ -86,32 +83,33 @@ def move_snake():
             pen.stamp()
         
         displayScore.clear()
-        displayScore.goto(-w/2+10,h/2-40)
-        displayScore.write("SCORE:"+str(len(snake))+
-                        " \nLIFE:"+str(life)+"/"+str(maxLife))
+        displayScore.goto(-w/2+10,h/2-20)
+        displayScore.write("SCORE:"+str(len(snake)))
          
         screen.update()
 
         #속도 증가
-        pen.color('black')
-        if t.time() - countingTen > 10 and delay > 40:
-            delay -= 5
-            countingTen = t.time()
-            pen.color('orange')
+        #pen.color('black')
+        #if t.time() - countingTen > 10 and delay > 40:
+        #    delay -= 5
+        #    countingTen = t.time()
+        #    pen.color('orange')
         
         turtle.ontimer(move_snake, delay)
-        
+
 def headInSnakeCheck(snake, head):
     for part in snake:
         if head == part[:2]:
             return True
     return False
-
+    
+    
+ 
 def food_collision():
     global food1, trap1
     if get_distance(snake[-1][0:2], food1['position']) < 20:
         food_goto_random()
-        trap_goto_random()
+        #trap_goto_random()
 
         #food 몸통위에 스폰시 재 배치
         for _ in range(100):
@@ -133,18 +131,18 @@ def food_goto_random():
     food.goto(food1['position'])
     
 
-def trap_goto_random():
-    global trap1
-    trap1['position'] = get_random_position(trap1['size'])
-    trap.goto(trap1['position'])
-
-def trap_collision():
-    global trap1
-    if get_distance(snake[-1][0:2], trap1['position']) < 20:
-        trap1['position'] = get_random_position(trap1['size'])
-        trap.goto(trap1['position'])
-        return True
-    return False
+#def trap_goto_random():
+#    global trap1
+#    trap1['position'] = get_random_position(trap1['size'])
+#    trap.goto(trap1['position'])
+#
+#def trap_collision():
+#    global trap1
+#    if get_distance(snake[-1], trap1['position']) < 20:
+#        trap1['position'] = get_random_position(trap1['size'])
+#        trap.goto(trap1['position'])
+#        return True
+#    return False
 
 def get_random_position(size):
     x = random.randint(- w / 2 + size, w / 2 - size)
@@ -162,27 +160,22 @@ def go_up():
     global snake_dir
     if snake_dir != "down":
         snake_dir = "up"
-        
-    
+ 
 def go_right():
     global snake_dir
     if snake_dir != "left":
         snake_dir = "right"
-        
-     
+ 
 def go_down():
     global snake_dir
     if snake_dir!= "up":
         snake_dir = "down"
-        
-    
+ 
 def go_left():
     global snake_dir
     if snake_dir != "right":
         snake_dir = "left"
-        
-    
-    
+
 def onEsc():
     print(gameOver)
     if gameOver:    
@@ -197,7 +190,7 @@ def surviveTime():
     return t.time() - startTime
 
 def start():
-    global w, h, food_size, delay, startTime, score, offsets, heading
+    global w, h, food_size, delay, startTime, score, offsets,heading
     
 
     offsets = {
@@ -212,11 +205,10 @@ def start():
         "left": 180,
         "right": 0
     }
-
     global screen
     screen = turtle.Screen()
     screen.setup(w, h)
-    screen.title("Snake HARD")
+    screen.title("Snake EASY")
     screen.bgcolor("green")
     screen.setup(w, h)
     screen.tracer(0)
@@ -230,7 +222,6 @@ def start():
     
     global pen
     pen = turtle.Turtle("turtle")
-    pen.setheading(0)
     pen.penup() 
      
     
@@ -241,12 +232,12 @@ def start():
     food.shapesize(food1['size'] / 20)
     food.penup()
 
-    global trap
-    trap = turtle.Turtle()
-    trap.color('red')
-    trap.shape('triangle')
-    trap.shapesize(trap1['size'] / 20)
-    trap.penup()
+    #global trap
+    #trap = turtle.Turtle()
+    #trap.color('red')
+    #trap.shape('triangle')
+    #trap.shapesize(trap1['size'] / 20)
+    #trap.penup()
     
     screen.listen()
     screen.onkey(go_up, "Up")
