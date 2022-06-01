@@ -2,6 +2,7 @@ import turtle
 import random
 import time
 import tkinter
+import Ranking
 
 t = time
 w = 700
@@ -200,7 +201,7 @@ def onEsc():
 def onF1():
     if gameOver:
         turtle.bye()
-        print('다른모듈 실행')
+        Ranking.showRanking(snake)
     
 def surviveTime():
     return t.time() - startTime

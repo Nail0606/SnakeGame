@@ -24,7 +24,7 @@ def ranklist():
     ranking = {}
     font = tkinter.font.Font(family="맑은 고딕", size=15)
     font2 = tkinter.font.Font(family="Courier", size=15, weight='bold' )
-    with open("Ranking.txt", 'r',encoding='UTF-8') as f:
+    with open("Ranking.txt", 'r') as f:
         for line in f.readlines():
             ranking[line.split(',')[0]] = int(line.split(',')[1].strip())
 
